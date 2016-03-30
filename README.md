@@ -6,9 +6,10 @@ This is a demo of oauth with envato API using angular 2 and electron. It uses re
 
 ```javascript
 {
-    "github": {
-        "client_id": "yourclientID",
-        "client_secret": "yoursecretkey",
+    "envato": {
+        "client_id": "envato-teams-dqiuoub0",
+        "client_secret": "OOqF254PB2zaZfcYLeGSk4Fg0IJLo2lh",
+        "redirect_uri": "http://themonkeythemes.com",
         "scopes": [
             "user:email",
             "notifications"
