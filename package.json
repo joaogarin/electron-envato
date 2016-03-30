@@ -1,0 +1,72 @@
+{
+  "name": "angular2-electron",
+  "version": "0.0.0",
+  "description": "Angular 2 with Electron and Webpack",
+  "main": "",
+  "scripts": {
+    "watch": "npm run watch:dev",
+    "watch:dev": "webpack --watch --progress --profile --colors --display-error-details --display-cached",
+    "build": "npm run build:dev",
+    "build:dev": "webpack --progress --profile --colors --display-error-details --display-cached",
+    "package": "node package.js",
+    "package-all": "npm run package -- --all",
+    "typings-install": "typings install",
+    "postinstall": "npm run typings-install",
+    "electron": "electron src/app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joaogarin/angular2-electron.git"
+  },
+  "author": "joaogarin <github@joaogarin.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joaogarin/angular2-electron/issues"
+  },
+  "homepage": "",
+  "dependencies": {
+    "angular2": "2.0.0-beta.12",
+    "core-js": "^2.1.5",
+    "electron-prebuilt": "^0.35.4",
+    "rxjs": "5.0.0-beta.2",
+    "webpack-target-electron-renderer": "^0.4.0",
+    "zone.js": "0.6.6"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^0.15.10",
+    "compression-webpack-plugin": "^0.3.0",
+    "copy-webpack-plugin": "^1.1.1",
+    "css-loader": "^0.23.1",
+    "electron-packager": "^5.2.1",
+    "es6-promise-loader": "^1.0.1",
+    "es6-shim": "^0.35.0",
+    "es7-reflect-metadata": "^1.6.0",
+    "exports-loader": "^0.6.3",
+    "expose-loader": "^0.7.1",
+    "file-loader": "^0.8.5",
+    "imports-loader": "^0.6.5",
+    "json-loader": "^0.5.4",
+    "raw-loader": "0.5.1",
+    "redux": "^3.3.1",
+    "reflect-metadata": "0.1.2",
+    "rimraf": "^2.5.2",
+    "source-map-loader": "^0.1.5",
+    "style-loader": "^0.13.0",
+    "ts-helper": "0.0.1",
+    "ts-node": "^0.7.0",
+    "tsconfig-lint": "^0.6.0",
+    "tslint": "^3.5.0",
+    "tslint-loader": "^2.1.0",
+    "typedoc": "^0.3.12",
+    "typescript": "~1.8.9",
+    "typings": "^0.6.9",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-md5-hash": "^0.0.5"
+  },
+  "engines": {
+    "node": ">= 4.2.1 <= 5",
+    "npm": ">= 3"
+  }
+}
