@@ -1,14 +1,14 @@
-export const GITHUB_AUTH = 'GITHUB_AUTH';
+export const AUTH = 'AUTH';
 export const CHANGE_NAME = 'CHANGE_NAME';
 
 export class Actions {
     constructor() {
     }
 
-    github_auth(token:string) {
+    auth(token:string) {
         //Authenticate user via the store using the token received from github
         return {
-            type: GITHUB_AUTH,
+            type: AUTH,
             token: token,
             authenticated: true
         };

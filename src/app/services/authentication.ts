@@ -21,22 +21,21 @@ export class Authentication {
         this.http = http;
     }
 
-    githubHandShake() {
+    envatoHandShake() {
 
         // Build the OAuth consent page URL
-        let githubUrl = 'https://github.com/login/oauth/authorize?';
-        let authUrl = githubUrl + 'client_id=' + options.github.client_id + '&scope=' + options.github.scopes;
+        let envatoUrl = 'https://api.envato.com/authorization?response_type=code';
+        let authUrl = envatoUrl + '&client_id=' + options.envato.client_id + '&redirect_uri=' + options.envato.redirect_uri;
         this.authWindow.loadUrl(authUrl);
         this.authWindow.show();
 
-        // Handle the response from GitHub - See Update from 4/12/2015
-
+        // Handle the response
         this.authWindow.webContents.on('will-navigate', (event, url) => {
-            this.handleGitHubCallback(url);
+            this.handleEnvatoCallback(url);
         });
 
         this.authWindow.webContents.on('did-get-redirect-request', (event, oldUrl, newUrl) => {
-            this.handleGitHubCallback(newUrl);
+            this.handleEnvatoCallback(newUrl);
         });
 
         // Reset the authWindow on close
@@ -45,7 +44,8 @@ export class Authentication {
         }, false);
     }
 
-    handleGitHubCallback(url) {
+    handleEnvatoCallback(url) {
+        console.log(url);
         let raw_code = /code=([^&]*)/.exec(url) || null;
         let code = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
         let error = /\?error=(.+)$/.exec(url);
@@ -55,27 +55,31 @@ export class Authentication {
             this.authWindow.destroy();
         }
 
-        // If there is a code, proceed to get token from github
+        // If there is a code, proceed to get token
         if (code) {
-            this.requestGithubToken(options.github, code);
+            this.requestToken(options.envato, code);
         } else if (error) {
             alert('Oops! Something went wrong and we couldn\'t' +
-                'log you in using Github. Please try again.');
+                'log you in. Please try again.');
         }
     }
 
-    requestGithubToken(githubOptions, githubCode) {
-        let creds = "client_id=" + githubOptions.client_id + "&client_secret=" + githubOptions.client_secret + "&code=" + githubCode;
+    requestToken(authOptions, authCode) {
+        let creds = "grant_type=authorization_code" + "&code=" + authCode + "&client_id=" + authOptions.client_id + "&client_secret=" + authOptions.client_secret;
 
         let headers = new Headers();
-        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        //headers.append('Authorization', 'Bearer' + authCode);
+        
+        let request_url = 'https://api.envato.com/token?' + creds; 
 
-        this.http.post('https://github.com/login/oauth/access_token?' + creds, '', { headers: headers })
+        this.http.post(request_url, '', { headers: headers })
             .subscribe(
             response => {
                 //call the store to update the authToken
-                let body_object = JSON.parse(response['_body']);
-                this.requestUserData(body_object.access_token);
+                console.log(response);
+                //let body_object = JSON.parse(response['_body']);
+                //this.requestUserData(body_object.access_token);
             },
             err => console.log(err),
             () => console.log('Authentication Complete')
@@ -85,12 +89,13 @@ export class Authentication {
     
     requestUserData(token){
         //set the token
-        this.appStore.dispatch(this.actions.github_auth(token));
+        this.appStore.dispatch(this.actions.auth(token));
         
         let headers = new Headers();
         headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer' + token);
 
-        this.http.get('https://api.github.com/user?access_token=' + token, { headers: headers })
+        this.http.get('https://api.envato.com/user?access_token=' + token, { headers: headers })
             .subscribe(
             response => {
                 //call the store to update the authToken

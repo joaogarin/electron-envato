@@ -12,7 +12,7 @@ import { Authentication } from './../services/authentication';
     providers: [Authentication],
     template: `
     <div>
-        <button *ngIf="!authenticated" (click)="authenticate()">Authenticate with Github</button>
+        <button *ngIf="!authenticated" (click)="authenticate()">Authenticate with Envato</button>
     </div>
     `
 })
@@ -40,7 +40,7 @@ export class Login implements OnDestroy {
     }
 
     checkAuth() {
-        let storageToken = window.localStorage.getItem('authToken');
+        let storageToken = window.localStorage.getItem('envatoTeamsauthToken');
         
         if(storageToken){
             this.auth.requestUserData(storageToken);
@@ -48,7 +48,7 @@ export class Login implements OnDestroy {
     }
 
     authenticate() {
-        this.auth.githubHandShake();
+        this.auth.envatoHandShake();
     }
 
     ngOnDestroy() {
