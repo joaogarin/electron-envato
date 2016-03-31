@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "awesome-typescript-loader": "^0.15.10",
-    "compression-webpack-plugin": "^0.3.0",
+    "compression-webpack-plugin": "^0.3.1",
     "copy-webpack-plugin": "^1.1.1",
     "css-loader": "^0.23.1",
     "electron-packager": "^5.2.1",
