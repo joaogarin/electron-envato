@@ -45,7 +45,6 @@ export class Authentication {
     }
 
     handleEnvatoCallback(url) {
-        console.log(url);
         let raw_code = /code=([^&]*)/.exec(url) || null;
         let code = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
         let error = /\?error=(.+)$/.exec(url);
@@ -71,15 +70,14 @@ export class Authentication {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         //headers.append('Authorization', 'Bearer' + authCode);
         
-        let request_url = 'https://api.envato.com/token?' + creds; 
+        let request_url = 'https://api.envato.com/token'; 
 
-        this.http.post(request_url, '', { headers: headers })
+        this.http.post(request_url, creds, { headers: headers })
             .subscribe(
             response => {
                 //call the store to update the authToken
-                console.log(response);
-                //let body_object = JSON.parse(response['_body']);
-                //this.requestUserData(body_object.access_token);
+                let body_object = JSON.parse(response['_body']);
+                this.requestUserData(body_object.access_token);
             },
             err => console.log(err),
             () => console.log('Authentication Complete')
@@ -93,14 +91,15 @@ export class Authentication {
         
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer' + token);
+        headers.append('Authorization', 'Bearer ' + token);
 
-        this.http.get('https://api.envato.com/user?access_token=' + token, { headers: headers })
+        this.http.get('https://api.envato.com/v1/market/private/user/account.json', { headers: headers })
             .subscribe(
             response => {
                 //call the store to update the authToken
                 let body_object = JSON.parse(response['_body']);
-                this.appStore.dispatch(this.actions.change_name(body_object.name));
+                console.log(body_object);
+                this.appStore.dispatch(this.actions.change_name(body_object.account.firstname + " " + body_object.account.surname));
             },
             err => console.log(err),
             () => console.log('Request Complete')
