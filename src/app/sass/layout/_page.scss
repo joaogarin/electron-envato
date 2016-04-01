@@ -1,0 +1,10 @@
+@import "./../base/_settings";
+@import "./../base/_colors";
+@import "./../base/_buttons";
+@import "./../base/_typography";
+
+body {
+    font-family: $base-font;
+    font-size: $base-font-size;
+    line-height: $base-line-height;
+}

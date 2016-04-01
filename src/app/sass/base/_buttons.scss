@@ -1,0 +1,40 @@
+@import "./colors";
+@import "./settings";
+
+@mixin button(){
+    background: $color--grey-dark;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    display: inline-block;
+    padding: 11px 30px;
+    text-decoration: none!important;
+    position: relative;
+    font-weight: 500;
+    border-bottom: none;
+    font-family: $base-font;
+    font-size: $button-font-size;
+}
+
+%button--primary {
+    @include button();
+    background: $color--primary;
+}
+
+%button--secondary {
+    @include button();
+    background: $color--secondary;
+}
+
+//Atomic classes generated from button
+.button {
+    @extend %button;
+}
+
+.button--primary {
+    @extend %button--primary;
+}
+
+.button--secondary {
+    @extend %button--secondary;
+}

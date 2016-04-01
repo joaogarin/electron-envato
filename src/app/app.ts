@@ -5,7 +5,7 @@ import * as ngCore from 'angular2/core';
 import * as browser from 'angular2/platform/browser';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {HTTP_PROVIDERS} from 'angular2/http';
-import {Component} from 'angular2/core';
+import {Component, ViewEncapsulation} from 'angular2/core';
 
 //setup redux
 import {createStore} from 'redux';
@@ -16,6 +16,8 @@ const appStore = createStore(rootReducer);
 
 import {Login} from './components/login';
 import {Home} from './components/home';
+
+var page_css = require("./sass/layout/_page.scss");
 
 /*
  * App Environment Providers
@@ -33,6 +35,8 @@ ENV_PROVIDERS.push(browser.ELEMENT_PROBE_PROVIDERS);
     // The selector is what angular internally uses
     selector: 'app', // <app></app>
     directives: [ROUTER_DIRECTIVES, Login, Home],
+    encapsulation: ViewEncapsulation.None,
+    styles: [`${page_css}`],
     template: `
     <div>
         <router-outlet></router-outlet>

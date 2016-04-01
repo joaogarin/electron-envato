@@ -12,7 +12,7 @@ import { Authentication } from './../services/authentication';
     providers: [Authentication],
     template: `
     <div>
-        <button *ngIf="!authenticated" (click)="authenticate()">Authenticate with Envato</button>
+        <button class="button--primary" *ngIf="!authenticated" (click)="authenticate()">Authenticate with Envato</button>
     </div>
     `
 })

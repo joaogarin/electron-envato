@@ -9,6 +9,7 @@ var helpers = require('./helpers');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 
@@ -65,13 +66,27 @@ var config = {
             { test: /\.css$/, loader: 'raw-loader' },
 
             // support for .html as raw text
-            { test: /\.html$/, loader: 'raw-loader', exclude: [helpers.root('app/index.html')] }
+            { test: /\.html$/, loader: 'raw-loader', exclude: [helpers.root('app/index.html')] },
+            
+            // Support for CSS as raw text
+            { test: /\.css$/, loader: 'raw' },
+
+            //sass loader implementation
+            { test: /\.scss$/, loader: ExtractTextPlugin.extract(['css','sass']) },
+
+            // inline base64 URLs for <=8k images, direct URLs for the rest
+            { test: /\.(png|jpg|jpeg)$/, loader: 'url-loader?limit=8192' },
 
             // if you add a loader include the resolve file extension above
         ]
     },
 
     plugins: [
+        // Plugin : ExtractTextPlugin
+        // Description: Extact sass into its own css file
+        //
+        // See: https://github.com/webpack/extract-text-webpack-plugin
+        new ExtractTextPlugin("styles.css"),
         // Plugin: ForkCheckerPlugin
         // Description: Do type checking in a separate process, so webpack don't need to wait.
         //
