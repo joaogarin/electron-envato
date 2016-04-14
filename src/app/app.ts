@@ -7,16 +7,26 @@ import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, RouteConfig, R
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {Component, ViewEncapsulation} from 'angular2/core';
 
-//setup redux
+/**
+ * setup redux
+ */
 import {createStore} from 'redux';
 import {rootReducer} from './rootReducer';
 import {Actions} from './actions';
-
 const appStore = createStore(rootReducer);
 
+/**
+ * Import our child components
+ */
 import {Login} from './components/login';
 import {Home} from './components/home';
 
+
+/**
+ * Import our global css
+ * Because this component is set to use encapsulation: ViewEncapsulation.None, the css in here 
+ * will be global and not scoped in any way.
+ */
 var page_css = require("./sass/layout/_page.scss");
 
 /*
