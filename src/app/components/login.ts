@@ -1,8 +1,8 @@
 /**
  * Import decorators and services from angular
  */
-import {Component, Inject, NgZone, OnDestroy} from 'angular2/core';
-import {Router} from 'angular2/router';
+import {Component, Inject, NgZone, OnDestroy} from '@angular/core';
+import {Router} from '@angular/router-deprecated';
 
 /**
  * Include action representations from our list of actions to dispatch
@@ -28,7 +28,11 @@ export class Login implements OnDestroy {
     authenticated: boolean;
 
     //Inject Authentication service on construction
-    constructor(private _router: Router, private _ngZone: NgZone, @Inject('AppStore') private appStore, @Inject(Authentication) private auth, private actions: Actions) {
+    constructor(private _router: Router,
+      private _ngZone: NgZone,
+      @Inject('AppStore') private appStore,
+      @Inject(Authentication) private auth,
+      private actions: Actions) {
         this.auth = auth;
 
         this.checkAuth();

@@ -1,7 +1,7 @@
 /**
  * Import decorators and services from angular
  */
-import {Component,Inject} from 'angular2/core';
+import {Component,Inject} from '@angular/core';
 
 @Component({
     selector: 'home',
@@ -14,7 +14,7 @@ import {Component,Inject} from 'angular2/core';
 })
 export class Home {
     name: string;
-    
+
     constructor(@Inject('AppStore') private appStore) {
         let state = this.appStore.getState();
         this.name = state.username;

@@ -1,11 +1,18 @@
 /*
  * Providers provided by Angular
  */
-import * as ngCore from 'angular2/core';
-import * as browser from 'angular2/platform/browser';
-import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
-import {HTTP_PROVIDERS} from 'angular2/http';
-import {Component, ViewEncapsulation} from 'angular2/core';
+import {provide, enableProdMode} from '@angular/core';
+import {bootstrap} from '@angular/platform-browser-dynamic'
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+
+// ROUTER
+import {ROUTER_PROVIDERS, RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+
+// HTTP
+import {HTTP_PROVIDERS} from '@angular/http';
+
+// Decorators
+import {Component, ViewEncapsulation} from '@angular/core';
 
 /**
  * setup redux
@@ -24,18 +31,10 @@ import {Home} from './components/home';
 
 /**
  * Import our global css
- * Because this component is set to use encapsulation: ViewEncapsulation.None, the css in here 
+ * Because this component is set to use encapsulation: ViewEncapsulation.None, the css in here
  * will be global and not scoped in any way.
  */
 var page_css = require("./sass/layout/_page.scss");
-
-/*
- * App Environment Providers
- * providers that only live in certain environment
- */
-const ENV_PROVIDERS = [];
-
-ENV_PROVIDERS.push(browser.ELEMENT_PROBE_PROVIDERS);
 
 /*
  * App Component
@@ -73,11 +72,10 @@ export class App {
  * Bootstrap our Angular app with a top level component `App` and inject
  * our Services and Providers into Angular's dependency injection
  */
-browser.bootstrap(App, [
-    ...ENV_PROVIDERS,
+bootstrap(App, [
     ...HTTP_PROVIDERS,
     ...ROUTER_PROVIDERS,
-    ngCore.provide(LocationStrategy, { useClass: HashLocationStrategy }),
-    ngCore.provide('AppStore', { useValue: appStore }),
+    provide(LocationStrategy, { useClass: HashLocationStrategy }),
+    provide('AppStore', { useValue: appStore }),
     Actions
 ])

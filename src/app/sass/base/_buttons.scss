@@ -16,6 +16,10 @@
     font-size: $button-font-size;
 }
 
+%button {
+  @include button();
+}
+
 %button--primary {
     @include button();
     background: $color--primary;
