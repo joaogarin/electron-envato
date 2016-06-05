@@ -51,6 +51,10 @@ var config = {
     },
 
     module: {
+        preLoaders: [{
+            test: /\.ts$/,
+            loader: "tslint"
+        }],
         loaders: [
             // Support for .ts files.
             {
@@ -121,7 +125,7 @@ var config = {
     ],
     // Other module loader config
     tslint: {
-        emitErrors: false,
+        emitErrors: true,
         failOnHint: false,
         resourcePath: 'app'
     },

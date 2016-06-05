@@ -1,26 +1,22 @@
 /**
  * Import decorators and services from angular
  */
-import {Component,Inject} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 
 @Component({
-    selector: 'home',
+    selector: 'ee-home',
     template: `
     <div>
        <h1>{{name}}</h1>
-       <input [(ngModel)]="name" />
+       <input [(ngModel)]='name' />
     </div>
     `
 })
-export class Home {
+export class HomeComponent {
     name: string;
 
-    constructor(@Inject('AppStore') private appStore) {
+    constructor( @Inject('AppStore') private appStore) {
         let state = this.appStore.getState();
         this.name = state.username;
-    }
-
-    ngOnInit() {
-        // Our API
     }
 }

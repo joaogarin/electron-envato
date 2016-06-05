@@ -63,7 +63,7 @@ export class Authentication {
     });
 
     // Reset the authWindow on close
-    this.authWindow.on('close', function() {
+    this.authWindow.on('close', function () {
       this.authWindow = null;
     }, false);
   }
@@ -109,7 +109,7 @@ export class Authentication {
    * The code received by the authentication method
    */
   requestToken(authOptions, authCode) {
-    let creds = "grant_type=authorization_code" + "&code=" + authCode + "&client_id=" + authOptions.client_id + "&client_secret=" + authOptions.client_secret;
+    let creds = 'grant_type=authorization_code' + '&code=' + authCode + '&client_id=' + authOptions.client_id + '&client_secret=' + authOptions.client_secret;
 
     let headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -150,7 +150,7 @@ export class Authentication {
         //call the store to update the authToken
         let body_object = JSON.parse(response['_body']);
         console.log(body_object);
-        this.appStore.dispatch(this.actions.change_name(body_object.account.firstname + " " + body_object.account.surname));
+        this.appStore.dispatch(this.actions.change_name(body_object.account.firstname + ' ' + body_object.account.surname));
       },
       err => console.log(err),
       () => console.log('Request Complete')

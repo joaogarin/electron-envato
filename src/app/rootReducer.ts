@@ -10,7 +10,7 @@ const initialState = {
     authToken: window.localStorage.getItem('envatoTeamsauthToken') || false,
     authenticated: false,
     username: ''
-}
+};
 
 /**
  * Our main reducer function

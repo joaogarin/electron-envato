@@ -2,7 +2,7 @@
  * Providers provided by Angular
  */
 import {provide, enableProdMode} from '@angular/core';
-import {bootstrap} from '@angular/platform-browser-dynamic'
+import {bootstrap} from '@angular/platform-browser-dynamic';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 // ROUTER
@@ -25,8 +25,8 @@ const appStore = createStore(rootReducer);
 /**
  * Import our child components
  */
-import {Login} from './components/login';
-import {Home} from './components/home';
+import {LoginComponent} from './components/login';
+import {HomeComponent} from './components/home';
 
 
 /**
@@ -34,7 +34,7 @@ import {Home} from './components/home';
  * Because this component is set to use encapsulation: ViewEncapsulation.None, the css in here
  * will be global and not scoped in any way.
  */
-var page_css = require("./sass/layout/_page.scss");
+var page_css = require('./sass/layout/_page.scss');
 
 /*
  * App Component
@@ -42,8 +42,8 @@ var page_css = require("./sass/layout/_page.scss");
  */
 @Component({
     // The selector is what angular internally uses
-    selector: 'app', // <app></app>
-    directives: [ROUTER_DIRECTIVES, Login, Home],
+    selector: 'ee-app', // <app></app>
+    directives: [ROUTER_DIRECTIVES, LoginComponent, HomeComponent],
     encapsulation: ViewEncapsulation.None,
     styles: [`${page_css}`],
     template: `
@@ -53,29 +53,22 @@ var page_css = require("./sass/layout/_page.scss");
     `
 })
 @RouteConfig([
-    { path: '/', component: Login, name: 'Login' },
-    { path: '/login', component: Login, name: 'Login' },
-    { path: '/home', component: Home, name: 'Home' }
+    { path: '/', component: LoginComponent, name: 'Login' },
+    { path: '/login', component: LoginComponent, name: 'Login' },
+    { path: '/home', component: HomeComponent, name: 'Home' }
 ])
-export class App {
-    //component initialization
-    ngOnInit() {
-        //check authentication
-    }
+export class AppComponent {
 
-    checkAuthentication() {
-
-    }
 }
 
 /*
  * Bootstrap our Angular app with a top level component `App` and inject
  * our Services and Providers into Angular's dependency injection
  */
-bootstrap(App, [
+bootstrap(AppComponent, [
     ...HTTP_PROVIDERS,
     ...ROUTER_PROVIDERS,
     provide(LocationStrategy, { useClass: HashLocationStrategy }),
     provide('AppStore', { useValue: appStore }),
     Actions
-])
+]);
