@@ -35,7 +35,7 @@ describe('App component', () => {
         template: ``,
         directives: [HomeComponent]
     })
-    class HomeTest {}c
+    class HomeTest {}
 
     it('shoud render with h1 empty', async(inject([TestComponentBuilder], (tcb) => {
         tcb.overrideTemplate(HomeTest, '<ee-home></ee-home>')
